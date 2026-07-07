@@ -1,0 +1,5 @@
+# Netlify-Konfiguration
+# Die Seite ist statisch – nichts muss gebaut werden.
+[build]
+  publish = "."
+  command = ""

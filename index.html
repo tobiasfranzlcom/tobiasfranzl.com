@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Tobias Franzl</title>
+  <meta name="description" content="Tobias Franzl – Metallbautechnik und Recycling. Präzision, Materialverständnis und saubere Abläufe." />
+
+  <!-- Social / Sharing -->
+  <meta property="og:title" content="Tobias Franzl" />
+  <meta property="og:description" content="Metallbautechnik und Recycling – Präzision, Materialverständnis und saubere Abläufe." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://tobiasfranzl.com" />
+
+  <link rel="icon" href="favicon.svg" type="image/svg+xml" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+  <!-- ============ HEADER / NAV ============ -->
+  <header class="site-header" id="top">
+    <div class="header-inner">
+      <a href="#top" class="logo">Tobias Franzl</a>
+      <nav class="nav" aria-label="Hauptnavigation">
+        <a href="#ueber-mich">Über mich</a>
+        <a href="#kontakt">Kontakt</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+
+    <!-- ============ HERO ============ -->
+    <section class="hero" aria-label="Startseite">
+      <h1 class="hero-name">
+        <span>Tobias</span>
+        <span>Franzl</span>
+      </h1>
+      <img class="hero-photo" src="images/portrait.png" alt="Portrait von Tobias Franzl" />
+      <p class="hero-tag">Metallbau &nbsp;·&nbsp; Recycling</p>
+    </section>
+
+    <!-- ============ 01 · ÜBER MICH ============ -->
+    <section class="section about reveal" id="ueber-mich" aria-labelledby="about-heading">
+      <p class="section-index">01</p>
+      <div class="about-grid">
+        <div class="about-left">
+          <h2 class="section-heading" id="about-heading">
+            <span>Über</span>
+            <span>Mich</span>
+          </h2>
+          <figure class="about-figure">
+            <img src="images/about.png" alt="Tobias Franzl im Portrait" />
+          </figure>
+        </div>
+        <div class="about-text">
+          <p>Ich habe als Metallbautechniker gestartet und dadurch früh gelernt, wie wichtig Präzision, Materialverständnis und saubere Abläufe sind. Dieses technische Fundament begleitet mich bis heute.</p>
+          <p>Inzwischen habe ich in der Recyclingbranche Fuß gefasst und verbinde handwerkliches Verständnis mit einem klaren Blick für Kreisläufe, Prozesse und nachhaltige Lösungen. Was mich antreibt, ist die Frage, wie aus vorhandenem Material wieder etwas Wertvolles entsteht.</p>
+          <p>Ich arbeite strukturiert, denke mit und packe an, wenn es darauf ankommt – vom ersten Konzept bis zum sauberen Ergebnis.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ 02 · KONTAKT ============ -->
+    <section class="section contact reveal" id="kontakt" aria-labelledby="contact-heading">
+      <p class="section-index">02</p>
+      <h2 class="section-heading" id="contact-heading">Kontakt</h2>
+
+      <div class="contact-grid">
+        <div class="contact-form-wrap">
+          <p class="contact-intro">Schreib mir eine Nachricht. Ich freue mich, von dir zu hören.</p>
+
+          <!-- Netlify-Formular: funktioniert automatisch beim Hosting über Netlify.
+               Details zur E-Mail-Weiterleitung stehen in der README.md -->
+          <form
+            name="kontakt"
+            method="POST"
+            data-netlify="true"
+            netlify-honeypot="bot-field"
+            class="contact-form"
+          >
+            <input type="hidden" name="form-name" value="kontakt" />
+            <p class="hp-field">
+              <label>Bitte leer lassen: <input name="bot-field" /></label>
+            </p>
+
+            <div class="field">
+              <label for="name">Name</label>
+              <input type="text" id="name" name="name" autocomplete="name" required />
+            </div>
+
+            <div class="field">
+              <label for="email">E-Mail</label>
+              <input type="email" id="email" name="email" autocomplete="email" required />
+            </div>
+
+            <div class="field">
+              <label for="nachricht">Nachricht</label>
+              <textarea id="nachricht" name="nachricht" rows="6" required></textarea>
+            </div>
+
+            <button type="submit" class="submit-btn">Absenden</button>
+            <p class="form-status" id="formStatus" role="status" aria-live="polite"></p>
+          </form>
+        </div>
+
+        <aside class="contact-side">
+          <div class="contact-block">
+            <p class="contact-label">E-Mail</p>
+            <a href="mailto:hello@tobiasfranzl.com">hello@tobiasfranzl.com</a>
+          </div>
+          <div class="contact-block">
+            <p class="contact-label">Fachgebiet</p>
+            <p>Metallbautechnik &amp; Recycling</p>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ============ FOOTER ============ -->
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <span class="footer-name">Tobias Franzl</span>
+      <a href="mailto:hello@tobiasfranzl.com" class="footer-mail">hello@tobiasfranzl.com</a>
+      <span class="footer-year">© <span id="year"></span></span>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
