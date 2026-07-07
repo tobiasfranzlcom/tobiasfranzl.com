@@ -71,6 +71,7 @@
 
       var data = {};
       new FormData(form).forEach(function (v, k) { data[k] = v; });
+      data["form-name"] = form.getAttribute("name") || "kontakt";
 
       status.textContent = "Wird gesendet …";
       status.className = "form-status";
