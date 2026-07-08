@@ -63,16 +63,117 @@
 
   /*
     Kontaktformular:
-
-    Wichtig:
-    Das Formular wird bewusst NICHT per JavaScript abgefangen.
-
-    Warum?
-    Netlify Forms + Netlify reCAPTCHA sollen den Submit serverseitig prüfen.
-    Wenn JavaScript den Submit mit fetch() abfängt, kann die Seite eine
-    Erfolgsmeldung anzeigen, obwohl das CAPTCHA nicht bestätigt wurde.
-
-    Deshalb bleibt der normale/native Formular-Submit aktiv.
-    Netlify übernimmt Verarbeitung, Spam-Schutz, Honeypot und reCAPTCHA.
+    Kein AJAX/fetch mehr, damit Netlify Forms + reCAPTCHA serverseitig sauber arbeiten.
+    Dieses Script prüft nur VOR dem Absenden:
+    - Pflichtfelder
+    - Telefonnummer nur + und Zahlen
+    - CAPTCHA bestätigt
   */
+
+  var form = document.querySelector(".contact-form");
+  var status = document.getElementById("formStatus");
+  var phoneInput = document.getElementById("telefon");
+
+  function setStatus(message, type) {
+    if (!status) return;
+    status.textContent = message;
+    status.className = "form-status " + (type || "");
+  }
+
+  function cleanPhoneValue(value) {
+    /*
+      Erlaubt:
+      + am Anfang
+      Zahlen 0–9
+
+      Beispiele gültig:
+      +436601234567
+      06601234567
+
+      Nicht erlaubt:
+      Buchstaben, Leerzeichen, Klammern, Bindestriche
+    */
+    var cleaned = value.replace(/[^0-9+]/g, "");
+
+    if (cleaned.indexOf("+") > -1) {
+      cleaned = cleaned.replace(/\+/g, "");
+      cleaned = "+" + cleaned;
+    }
+
+    return cleaned;
+  }
+
+  function isPhoneValid(value) {
+    if (!value) return true; // Telefonnummer ist optional
+    return /^\+?[0-9]+$/.test(value);
+  }
+
+  function getCaptchaResponse() {
+    var responseField = document.querySelector('textarea[name="g-recaptcha-response"]');
+
+    if (responseField && responseField.value.trim().length > 0) {
+      return responseField.value.trim();
+    }
+
+    if (window.grecaptcha && typeof window.grecaptcha.getResponse === "function") {
+      return window.grecaptcha.getResponse();
+    }
+
+    return "";
+  }
+
+  if (phoneInput) {
+    phoneInput.addEventListener("input", function () {
+      var cleaned = cleanPhoneValue(phoneInput.value);
+      if (phoneInput.value !== cleaned) {
+        phoneInput.value = cleaned;
+      }
+    });
+  }
+
+  if (form) {
+    form.addEventListener("submit", function (event) {
+      setStatus("", "");
+
+      if (phoneInput) {
+        phoneInput.value = cleanPhoneValue(phoneInput.value.trim());
+
+        if (!isPhoneValid(phoneInput.value)) {
+          event.preventDefault();
+          setStatus("Bitte gib bei der Telefonnummer nur Zahlen und optional ein + am Anfang ein.", "err");
+          phoneInput.focus();
+          return;
+        }
+      }
+
+      if (!form.checkValidity()) {
+        event.preventDefault();
+        form.reportValidity();
+        return;
+      }
+
+      var captchaResponse = getCaptchaResponse();
+
+      if (!captchaResponse) {
+        event.preventDefault();
+        setStatus("Bitte bestätige zuerst das CAPTCHA.", "err");
+
+        var captchaBox = document.querySelector('[data-netlify-recaptcha="true"]');
+        if (captchaBox) {
+          captchaBox.scrollIntoView({
+            behavior: "smooth",
+            block: "center"
+          });
+        }
+
+        return;
+      }
+
+      setStatus("Wird gesendet …", "");
+      /*
+        Danach läuft der normale native Formular-Submit weiter.
+        Netlify übernimmt die Verarbeitung.
+      */
+    });
+  }
 })();
