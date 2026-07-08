@@ -7,12 +7,12 @@
   --bg:        #f1efe8;   /* warmes Creme */
   --bg-2:      #f6f4ee;   /* leichter Verlauf oben */
   --ink:       #111110;   /* Schwarz für Text/Headings */
-  --gray-name: #837e74;   /* Grauton für Hero-Name (über Foto lesbar) */
+  --gray-name: #5f5b53;   /* sehr dunkles Grau für Hero-Name */
   --muted:     #9a958b;   /* Sektionsnummern, Captions */
   --line:      #d8d3c7;   /* Haarlinie */
   --field:     #c7c1b4;   /* Formular-Rahmen */
 
-  /* symmetrische Seitenränder (Abstand 1 = Abstand 2) */
+  /* symmetrische Seitenränder */
   --pad-x: clamp(1.5rem, 6vw, 7.5rem);
   --header-h: 76px;
 
@@ -49,6 +49,7 @@ img { display: block; max-width: 100%; height: auto; }
   -webkit-backdrop-filter: saturate(120%) blur(8px);
   border-bottom: 1px solid var(--line);
 }
+
 .header-inner {
   height: var(--header-h);
   padding: 0 var(--pad-x);
@@ -57,18 +58,20 @@ img { display: block; max-width: 100%; height: auto; }
   justify-content: space-between;
   gap: 1.5rem;
 }
-/* Logo: gleiche Schrift wie die Navigation, aber FETT, gleiche Größe */
+
 .logo {
   font-size: clamp(1.15rem, 2.1vw, 1.5rem);
   font-weight: 700;
   letter-spacing: -0.01em;
   white-space: nowrap;
 }
+
 .nav {
   display: flex;
   align-items: center;
   gap: clamp(1.5rem, 3.5vw, 3rem);
 }
+
 .nav a {
   font-size: 1.0625rem;
   font-weight: 500;
@@ -76,6 +79,7 @@ img { display: block; max-width: 100%; height: auto; }
   border-bottom: 1.5px solid transparent;
   transition: border-color .2s ease, opacity .2s ease;
 }
+
 .nav a:hover { border-color: var(--ink); }
 .nav a.is-active { border-color: var(--ink); }
 
@@ -89,29 +93,32 @@ img { display: block; max-width: 100%; height: auto; }
   justify-content: center;
   overflow: hidden;
 }
+
 .hero-name {
   position: relative;
-  z-index: 2;                 /* Name liegt VOR dem Foto */
-  color: var(--gray-name);    /* Grauton -> auch über dem Pullover lesbar */
+  z-index: 2;
+  color: var(--gray-name);
   font-weight: 800;
   line-height: 0.85;
-  letter-spacing: -0.03em;
+  letter-spacing: -0.035em;
   text-transform: uppercase;
   font-size: clamp(3.5rem, 17vw, 17rem);
   pointer-events: none;
 }
+
 .hero-name span { display: block; }
 
 .hero-photo {
   position: absolute;
   right: var(--pad-x);
   bottom: 0;
-  z-index: 1;                 /* Foto liegt HINTER dem Namen */
+  z-index: 1;
   height: min(90vh, 86%);
   width: auto;
   object-fit: contain;
   object-position: bottom right;
 }
+
 .hero-tag {
   position: relative;
   z-index: 3;
@@ -128,6 +135,7 @@ img { display: block; max-width: 100%; height: auto; }
   padding: clamp(4.5rem, 12vh, 9rem) var(--pad-x);
   border-top: 1px solid var(--line);
 }
+
 .section-index {
   font-size: 0.82rem;
   font-weight: 600;
@@ -135,6 +143,7 @@ img { display: block; max-width: 100%; height: auto; }
   color: var(--muted);
   margin-bottom: 1.1rem;
 }
+
 .section-heading {
   font-weight: 800;
   line-height: 0.9;
@@ -142,6 +151,7 @@ img { display: block; max-width: 100%; height: auto; }
   text-transform: uppercase;
   font-size: clamp(2.9rem, 11vw, 10.5rem);
 }
+
 .section-heading span { display: block; }
 
 /* ---- 01 Über mich ---- */
@@ -152,28 +162,43 @@ img { display: block; max-width: 100%; height: auto; }
   align-items: start;
   margin-top: 1.25rem;
 }
-.about-left { display: flex; flex-direction: column; }
+
+.about-left {
+  display: flex;
+  flex-direction: column;
+}
+
 .about-figure {
   margin-top: clamp(2rem, 5vw, 3.5rem);
   max-width: 460px;
 }
+
 .about-figure img { width: 100%; }
 
-/* Text oben rechts, Blocksatz bis zum Ende */
+/* Text oben rechts – kompakter Blocksatz */
 .about-text {
   padding-top: 0.4rem;
-  max-width: 640px;
+  max-width: 660px;
 }
+
 .about-text p {
   text-align: justify;
   text-justify: inter-word;
   hyphens: auto;
   -webkit-hyphens: auto;
-  font-size: clamp(1.05rem, 1.35vw, 1.3rem);
-  line-height: 1.6;
-  margin-bottom: 1.4em;
+
+  font-size: clamp(1rem, 1.2vw, 1.18rem);
+  line-height: 1.52;
+
+  letter-spacing: -0.012em;
+  word-spacing: -0.045em;
+
+  margin-bottom: 1.05em;
 }
-.about-text p:last-child { margin-bottom: 0; }
+
+.about-text p:last-child {
+  margin-bottom: 0;
+}
 
 /* ---- 02 Kontakt ---- */
 .contact-grid {
@@ -183,6 +208,7 @@ img { display: block; max-width: 100%; height: auto; }
   align-items: start;
   margin-top: clamp(2rem, 5vw, 3.25rem);
 }
+
 .contact-intro {
   font-size: clamp(1.1rem, 1.5vw, 1.45rem);
   line-height: 1.55;
@@ -190,9 +216,11 @@ img { display: block; max-width: 100%; height: auto; }
   margin-bottom: clamp(2rem, 4vw, 3rem);
 }
 
-/* Formular (nach links in den Inhaltsbereich verschoben) */
+/* Formular */
 .contact-form { max-width: 560px; }
+
 .field { margin-bottom: 1.6rem; }
+
 .field label {
   display: block;
   font-size: 0.78rem;
@@ -202,6 +230,7 @@ img { display: block; max-width: 100%; height: auto; }
   color: var(--ink);
   margin-bottom: 0.55rem;
 }
+
 .field input,
 .field textarea {
   width: 100%;
@@ -214,14 +243,24 @@ img { display: block; max-width: 100%; height: auto; }
   padding: 0.85rem 0.95rem;
   transition: border-color .18s ease, background .18s ease;
 }
-.field textarea { resize: vertical; min-height: 150px; }
+
+.field textarea {
+  resize: vertical;
+  min-height: 150px;
+}
+
 .field input:focus,
 .field textarea:focus {
   outline: none;
   border-color: var(--ink);
   background: #fff;
 }
-.hp-field { position: absolute; left: -9999px; opacity: 0; }
+
+.hp-field {
+  position: absolute;
+  left: -9999px;
+  opacity: 0;
+}
 
 .submit-btn {
   appearance: none;
@@ -237,6 +276,7 @@ img { display: block; max-width: 100%; height: auto; }
   padding: 1.05rem 2.4rem;
   transition: opacity .18s ease, transform .18s ease;
 }
+
 .submit-btn:hover { opacity: 0.85; }
 .submit-btn:active { transform: translateY(1px); }
 
@@ -245,6 +285,7 @@ img { display: block; max-width: 100%; height: auto; }
   font-size: 0.95rem;
   min-height: 1.2em;
 }
+
 .form-status.ok { color: #1c7a3e; }
 .form-status.err { color: #b23; }
 
@@ -254,6 +295,7 @@ img { display: block; max-width: 100%; height: auto; }
   gap: 2rem;
   padding-top: 0.4rem;
 }
+
 .contact-block .contact-label {
   font-size: 0.78rem;
   font-weight: 600;
@@ -262,14 +304,22 @@ img { display: block; max-width: 100%; height: auto; }
   color: var(--muted);
   margin-bottom: 0.4rem;
 }
-.contact-block a { border-bottom: 1.5px solid var(--ink); padding-bottom: 1px; }
-.contact-block a:hover { opacity: 0.7; }
+
+.contact-block a {
+  border-bottom: 1.5px solid var(--ink);
+  padding-bottom: 1px;
+}
+
+.contact-block a:hover {
+  opacity: 0.7;
+}
 
 /* ============ FOOTER ============ */
 .site-footer {
   border-top: 1px solid var(--line);
   padding: 2rem var(--pad-x);
 }
+
 .footer-inner {
   display: flex;
   flex-wrap: wrap;
@@ -279,9 +329,20 @@ img { display: block; max-width: 100%; height: auto; }
   font-size: 0.92rem;
   color: var(--muted);
 }
-.footer-name { font-weight: 600; color: var(--ink); }
-.footer-mail { border-bottom: 1px solid var(--line); }
-.footer-mail:hover { color: var(--ink); border-color: var(--ink); }
+
+.footer-name {
+  font-weight: 600;
+  color: var(--ink);
+}
+
+.footer-mail {
+  border-bottom: 1px solid var(--line);
+}
+
+.footer-mail:hover {
+  color: var(--ink);
+  border-color: var(--ink);
+}
 
 /* ============ SCROLL-REVEAL ============ */
 .reveal {
@@ -289,33 +350,67 @@ img { display: block; max-width: 100%; height: auto; }
   transform: translateY(24px);
   transition: opacity .7s ease, transform .7s ease;
 }
-.reveal.in { opacity: 1; transform: none; }
+
+.reveal.in {
+  opacity: 1;
+  transform: none;
+}
 
 /* ============ RESPONSIVE ============ */
 @media (max-width: 900px) {
-  .about-grid { grid-template-columns: 1fr; gap: 2.25rem; }
-  .about-figure { max-width: 380px; order: 2; margin-top: 2.25rem; }
-  .about-text { max-width: none; order: 1; }
-  .contact-grid { grid-template-columns: 1fr; gap: 2.75rem; }
+  .about-grid {
+    grid-template-columns: 1fr;
+    gap: 2.25rem;
+  }
+
+  .about-figure {
+    max-width: 380px;
+    order: 2;
+    margin-top: 2.25rem;
+  }
+
+  .about-text {
+    max-width: none;
+    order: 1;
+  }
+
+  .contact-grid {
+    grid-template-columns: 1fr;
+    gap: 2.75rem;
+  }
 }
 
 @media (max-width: 760px) {
   :root { --header-h: 64px; }
-  .header-inner { gap: 1rem; }
-  .nav { gap: 1.25rem; }
-  .nav a { font-size: 0.95rem; }
-  .logo { font-size: 1.1rem; }
+
+  .header-inner {
+    gap: 1rem;
+  }
+
+  .nav {
+    gap: 1.25rem;
+  }
+
+  .nav a {
+    font-size: 0.95rem;
+  }
+
+  .logo {
+    font-size: 1.1rem;
+  }
 
   .hero {
     min-height: auto;
     padding-top: 2.5rem;
     padding-bottom: 2.5rem;
   }
+
   .hero-name {
     font-size: clamp(3rem, 20vw, 6rem);
     position: relative;
+    color: var(--gray-name);
   }
-  /* Foto unter den Namen setzen (kein Überlappen mehr) */
+
   .hero-photo {
     position: relative;
     right: auto;
@@ -324,17 +419,35 @@ img { display: block; max-width: 100%; height: auto; }
     margin: 1.75rem auto 0;
     object-position: center;
   }
-  .hero-tag { text-align: center; margin-top: 1.5rem; }
-  .about-text p { text-align: left; hyphens: none; }
+
+  .hero-tag {
+    text-align: center;
+    margin-top: 1.5rem;
+  }
+
+  .about-text p {
+    text-align: left;
+    hyphens: none;
+    -webkit-hyphens: none;
+    word-spacing: normal;
+    letter-spacing: -0.01em;
+    line-height: 1.55;
+    margin-bottom: 1em;
+  }
 }
 
 /* Reduzierte Bewegung respektieren */
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
-  .reveal { opacity: 1; transform: none; transition: none; }
+
+  .reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
 }
 
-/* Sichtbarer Fokus (Barrierefreiheit) */
+/* Sichtbarer Fokus */
 a:focus-visible,
 button:focus-visible,
 input:focus-visible,
