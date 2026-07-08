@@ -82,7 +82,7 @@
         <div class="contact-form-wrap">
           <p class="contact-intro">Schreib mir eine Nachricht. Ich freue mich, von dir zu hören.</p>
 
-          <!-- Netlify-Formular: funktioniert automatisch beim Hosting über Netlify.
+          <!-- Netlify-Formular:
                Name, E-Mail und Nachricht sind Pflichtfelder.
                Telefonnummer ist optional.
                Honeypot und reCAPTCHA dienen als zusätzlicher Spam-Schutz. -->
@@ -106,8 +106,20 @@
             </div>
 
             <div class="field">
-              <label for="telefon">Telefonnummer optional</label>
-              <input type="tel" id="telefon" name="telefon" autocomplete="tel" />
+              <label for="telefon">
+                Telefonnummer <span class="optional-label">optional</span>
+              </label>
+              <input
+                type="tel"
+                id="telefon"
+                name="telefon"
+                autocomplete="tel"
+                inputmode="tel"
+                placeholder="+43 664 1234567"
+                pattern="^\+?[0-9\s]+$"
+                title="Bitte mit Ländervorwahl eingeben, z. B. +43 664 1234567. Erlaubt sind Zahlen, Leerzeichen und optional ein + am Anfang."
+              />
+              <p class="field-hint">Mit Ländervorwahl, z. B. +43 664 1234567</p>
             </div>
 
             <div class="field">
@@ -120,7 +132,7 @@
               <textarea id="nachricht" name="nachricht" rows="6" required></textarea>
             </div>
 
-            <div data-netlify-recaptcha="true"></div>
+            <div class="captcha-wrap" data-netlify-recaptcha="true"></div>
 
             <button type="submit" class="submit-btn">Absenden</button>
             <p class="form-status" id="formStatus" role="status" aria-live="polite"></p>
