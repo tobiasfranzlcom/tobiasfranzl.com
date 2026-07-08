@@ -83,15 +83,19 @@
           <p class="contact-intro">Schreib mir eine Nachricht. Ich freue mich, von dir zu hören.</p>
 
           <!-- Netlify-Formular: funktioniert automatisch beim Hosting über Netlify.
-               Details zur E-Mail-Weiterleitung stehen in der README.md -->
+               Name, E-Mail und Nachricht sind Pflichtfelder.
+               Telefonnummer ist optional.
+               Honeypot und reCAPTCHA dienen als zusätzlicher Spam-Schutz. -->
           <form
             name="kontakt"
             method="POST"
             data-netlify="true"
+            data-netlify-recaptcha="true"
             netlify-honeypot="bot-field"
             class="contact-form"
           >
             <input type="hidden" name="form-name" value="kontakt" />
+
             <p class="hp-field">
               <label>Bitte leer lassen: <input name="bot-field" /></label>
             </p>
@@ -99,6 +103,11 @@
             <div class="field">
               <label for="name">Name</label>
               <input type="text" id="name" name="name" autocomplete="name" required />
+            </div>
+
+            <div class="field">
+              <label for="telefon">Telefonnummer optional</label>
+              <input type="tel" id="telefon" name="telefon" autocomplete="tel" />
             </div>
 
             <div class="field">
@@ -111,21 +120,12 @@
               <textarea id="nachricht" name="nachricht" rows="6" required></textarea>
             </div>
 
+            <div data-netlify-recaptcha="true"></div>
+
             <button type="submit" class="submit-btn">Absenden</button>
             <p class="form-status" id="formStatus" role="status" aria-live="polite"></p>
           </form>
         </div>
-
-        <aside class="contact-side">
-          <div class="contact-block">
-            <p class="contact-label">E-Mail</p>
-            <a href="mailto:hello@tobiasfranzl.com">hello@tobiasfranzl.com</a>
-          </div>
-          <div class="contact-block">
-            <p class="contact-label">Fachgebiet</p>
-            <p>Metallbautechnik &amp; Recycling</p>
-          </div>
-        </aside>
       </div>
     </section>
 
@@ -135,7 +135,6 @@
   <footer class="site-footer">
     <div class="footer-inner">
       <span class="footer-name">Tobias Franzl</span>
-      <a href="mailto:hello@tobiasfranzl.com" class="footer-mail">hello@tobiasfranzl.com</a>
       <span class="footer-year">© <span id="year"></span></span>
     </div>
   </footer>
