@@ -177,8 +177,8 @@ img { display: block; max-width: 100%; height: auto; }
 
 /* Text oben rechts – kompakter Blocksatz */
 .about-text {
-  padding-top: 0.15rem;
-  max-width: 660px;
+  padding-top: 0.2rem;
+  max-width: 560px;
 }
 
 .about-text p {
@@ -187,15 +187,14 @@ img { display: block; max-width: 100%; height: auto; }
   hyphens: auto;
   -webkit-hyphens: auto;
 
-  font-size: clamp(0.94rem, 1.05vw, 1.08rem);
-  line-height: 1.43;
+  font-size: clamp(0.98rem, 1.12vw, 1.13rem);
+  line-height: 1.55;
 
-  letter-spacing: -0.014em;
-  word-spacing: -0.055em;
+  letter-spacing: -0.01em;
+  word-spacing: -0.025em;
 
-  margin-bottom: 0.82em;
+  margin-bottom: 1.05em;
 }
-
 .about-text p:last-child {
   margin-bottom: 0;
 }
