@@ -232,7 +232,7 @@ img {
 /* ---- 02 Kontakt ---- */
 .contact-grid {
   display: grid;
-  grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr);
+  grid-template-columns: minmax(0, 620px);
   gap: clamp(2.5rem, 7vw, 6rem);
   align-items: start;
   margin-top: clamp(2rem, 5vw, 3.25rem);
@@ -247,7 +247,7 @@ img {
 
 /* Formular */
 .contact-form {
-  max-width: 560px;
+  max-width: 620px;
 }
 
 .field {
@@ -262,6 +262,13 @@ img {
   text-transform: uppercase;
   color: var(--ink);
   margin-bottom: 0.55rem;
+}
+
+.optional-label {
+  color: var(--muted);
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: none;
 }
 
 .field input,
@@ -293,6 +300,12 @@ img {
   position: absolute;
   left: -9999px;
   opacity: 0;
+}
+
+.captcha-wrap,
+[data-netlify-recaptcha="true"] {
+  margin: 1.2rem 0 1.4rem;
+  min-height: 78px;
 }
 
 .submit-btn {
@@ -332,31 +345,6 @@ img {
   color: #b23;
 }
 
-.contact-side {
-  display: flex;
-  flex-direction: column;
-  gap: 2rem;
-  padding-top: 0.4rem;
-}
-
-.contact-block .contact-label {
-  font-size: 0.78rem;
-  font-weight: 600;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
-  color: var(--muted);
-  margin-bottom: 0.4rem;
-}
-
-.contact-block a {
-  border-bottom: 1.5px solid var(--ink);
-  padding-bottom: 1px;
-}
-
-.contact-block a:hover {
-  opacity: 0.7;
-}
-
 /* ============ FOOTER ============ */
 .site-footer {
   border-top: 1px solid var(--line);
@@ -376,15 +364,6 @@ img {
 .footer-name {
   font-weight: 600;
   color: var(--ink);
-}
-
-.footer-mail {
-  border-bottom: 1px solid var(--line);
-}
-
-.footer-mail:hover {
-  color: var(--ink);
-  border-color: var(--ink);
 }
 
 /* ============ SCROLL-REVEAL ============ */
