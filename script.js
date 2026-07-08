@@ -4,7 +4,9 @@
 
   /* Jahr im Footer */
   var yearEl = document.getElementById("year");
-  if (yearEl) yearEl.textContent = new Date().getFullYear();
+  if (yearEl) {
+    yearEl.textContent = new Date().getFullYear();
+  }
 
   /* Aktiver Navigationslink beim Scrollen */
   var sections = document.querySelectorAll("section[id]");
@@ -19,92 +21,58 @@
   if ("IntersectionObserver" in window) {
     var navObserver = new IntersectionObserver(
       function (entries) {
-        entries.forEach(function (e) {
-          if (e.isIntersecting) setActive(e.target.id);
+        entries.forEach(function (entry) {
+          if (entry.isIntersecting) {
+            setActive(entry.target.id);
+          }
         });
       },
-      { rootMargin: "-45% 0px -50% 0px", threshold: 0 }
+      {
+        rootMargin: "-45% 0px -50% 0px",
+        threshold: 0
+      }
     );
-    sections.forEach(function (s) { navObserver.observe(s); });
+
+    sections.forEach(function (section) {
+      navObserver.observe(section);
+    });
 
     /* Scroll-Reveal */
     var revealObserver = new IntersectionObserver(
-      function (entries, obs) {
-        entries.forEach(function (e) {
-          if (e.isIntersecting) {
-            e.target.classList.add("in");
-            obs.unobserve(e.target);
+      function (entries, observer) {
+        entries.forEach(function (entry) {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("in");
+            observer.unobserve(entry.target);
           }
         });
       },
-      { threshold: 0.12 }
+      {
+        threshold: 0.12
+      }
     );
-    document.querySelectorAll(".reveal").forEach(function (el) {
-      revealObserver.observe(el);
+
+    document.querySelectorAll(".reveal").forEach(function (element) {
+      revealObserver.observe(element);
     });
   } else {
-    document.querySelectorAll(".reveal").forEach(function (el) {
-      el.classList.add("in");
+    document.querySelectorAll(".reveal").forEach(function (element) {
+      element.classList.add("in");
     });
   }
 
-  /* Formular: freundliche Rückmeldung.
-     - Auf Netlify wird das Formular serverseitig verarbeitet.
-     - Diese AJAX-Variante zeigt eine Bestätigung ohne Seitenwechsel und
-       funktioniert auf Netlify. Auf anderen Hosts (z. B. GitHub Pages ohne
-       Formular-Backend) greift automatisch der E-Mail-Hinweis. */
-  var form = document.querySelector(".contact-form");
-  var status = document.getElementById("formStatus");
+  /*
+    Kontaktformular:
 
-  function encode(data) {
-    return Object.keys(data)
-      .map(function (k) {
-        return encodeURIComponent(k) + "=" + encodeURIComponent(data[k]);
-      })
-      .join("&");
-  }
+    Wichtig:
+    Das Formular wird bewusst NICHT per JavaScript abgefangen.
 
-  if (form) {
-    form.addEventListener("submit", function (ev) {
-      ev.preventDefault();
-      if (!form.checkValidity()) { form.reportValidity(); return; }
+    Warum?
+    Netlify Forms + Netlify reCAPTCHA sollen den Submit serverseitig prüfen.
+    Wenn JavaScript den Submit mit fetch() abfängt, kann die Seite eine
+    Erfolgsmeldung anzeigen, obwohl das CAPTCHA nicht bestätigt wurde.
 
-      var data = {};
-      new FormData(form).forEach(function (v, k) { data[k] = v; });
-      data["form-name"] = form.getAttribute("name") || "kontakt";
-
-      status.textContent = "Wird gesendet …";
-      status.className = "form-status";
-
-      fetch("/", {
-        method: "POST",
-        headers: { "Content-Type": "application/x-www-form-urlencoded" },
-        body: encode(data)
-      })
-        .then(function (res) {
-          if (res.ok) {
-            form.reset();
-            status.textContent = "Danke! Deine Nachricht wurde gesendet.";
-            status.className = "form-status ok";
-          } else {
-            throw new Error("bad response");
-          }
-        })
-        .catch(function () {
-          /* Fallback: E-Mail-Programm öffnen (funktioniert überall) */
-          var subject = encodeURIComponent("Nachricht über tobiasfranzl.com");
-          var body = encodeURIComponent(
-            "Name: " + (data.name || "") + "\n" +
-            "E-Mail: " + (data.email || "") + "\n\n" +
-            (data.nachricht || "")
-          );
-          status.innerHTML =
-            'Der Versand ist auf diesem Host nicht aktiv. ' +
-            '<a href="mailto:hello@tobiasfranzl.com?subject=' + subject +
-            '&body=' + body + '" style="border-bottom:1.5px solid currentColor">' +
-            'Hier per E-Mail senden</a>.';
-          status.className = "form-status err";
-        });
-    });
-  }
+    Deshalb bleibt der normale/native Formular-Submit aktiv.
+    Netlify übernimmt Verarbeitung, Spam-Schutz, Honeypot und reCAPTCHA.
+  */
 })();
