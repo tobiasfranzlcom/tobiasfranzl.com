@@ -18,7 +18,11 @@
   --font: "Inter", "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 
-* { box-sizing: border-box; margin: 0; padding: 0; }
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
 
 html {
   scroll-behavior: smooth;
@@ -89,8 +93,13 @@ img {
   transition: border-color .2s ease, opacity .2s ease;
 }
 
-.nav a:hover { border-color: var(--ink); }
-.nav a.is-active { border-color: var(--ink); }
+.nav a:hover {
+  border-color: var(--ink);
+}
+
+.nav a.is-active {
+  border-color: var(--ink);
+}
 
 /* ============ HERO ============ */
 .hero {
@@ -190,24 +199,27 @@ img {
   width: 100%;
 }
 
-/* Text rechts: kein Blocksatz, keine Trennungen, natürlicher Lesefluss */
+/* Text rechts: ruhiger Blocksatz ohne Worttrennungen */
 .about-text {
   padding-top: 0.35rem;
-  max-width: 760px;
+  max-width: 700px;
 }
 
 .about-text p {
-  text-align: left;
+  text-align: justify;
+  text-align-last: left;
+  text-justify: inter-word;
+
   hyphens: none;
   -webkit-hyphens: none;
   overflow-wrap: normal;
   word-break: normal;
 
   font-size: clamp(0.98rem, 1.08vw, 1.12rem);
-  line-height: 1.56;
+  line-height: 1.58;
 
-  letter-spacing: -0.008em;
-  word-spacing: 0;
+  letter-spacing: -0.006em;
+  word-spacing: -0.015em;
 
   margin-bottom: 1.08em;
 }
@@ -399,7 +411,7 @@ img {
 
   .about-text p {
     font-size: clamp(0.96rem, 1.05vw, 1.06rem);
-    line-height: 1.54;
+    line-height: 1.56;
   }
 }
 
