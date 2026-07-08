@@ -271,6 +271,13 @@ img {
   text-transform: none;
 }
 
+.field-hint {
+  margin-top: 0.45rem;
+  font-size: 0.82rem;
+  line-height: 1.4;
+  color: var(--muted);
+}
+
 .field input,
 .field textarea {
   width: 100%;
@@ -282,6 +289,11 @@ img {
   border-radius: 0;
   padding: 0.85rem 0.95rem;
   transition: border-color .18s ease, background .18s ease;
+}
+
+.field input::placeholder,
+.field textarea::placeholder {
+  color: rgba(154, 149, 139, 0.72);
 }
 
 .field textarea {
