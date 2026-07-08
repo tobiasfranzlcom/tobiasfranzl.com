@@ -191,7 +191,7 @@ img {
 }
 
 .about-figure {
-  margin-top: clamp(2.4rem, 5.5vw, 4rem);
+  margin-top: clamp(2.5rem, 5.65vw, 4.15rem);
   max-width: 460px;
 }
 
