@@ -4,13 +4,13 @@
    ========================================================= */
 
 :root {
-  --bg:        #f1efe8;   /* warmes Creme */
-  --bg-2:      #f6f4ee;   /* leichter Verlauf oben */
-  --ink:       #111110;   /* Schwarz für Text/Headings */
-  --gray-name: #5f5b53;   /* sehr dunkles Grau für Hero-Name */
-  --muted:     #9a958b;   /* Sektionsnummern, Captions */
-  --line:      #d8d3c7;   /* Haarlinie */
-  --field:     #c7c1b4;   /* Formular-Rahmen */
+  --bg:        #f1efe8;
+  --bg-2:      #f6f4ee;
+  --ink:       #111110;
+  --gray-name: #5f5b53;
+  --muted:     #9a958b;
+  --line:      #d8d3c7;
+  --field:     #c7c1b4;
 
   --pad-x: clamp(1.5rem, 6vw, 7.5rem);
   --header-h: 76px;
@@ -53,6 +53,7 @@ img {
 }
 
 /* ============ HEADER / NAV ============ */
+
 .site-header {
   position: sticky;
   top: 0;
@@ -93,15 +94,13 @@ img {
   transition: border-color .2s ease, opacity .2s ease;
 }
 
-.nav a:hover {
-  border-color: var(--ink);
-}
-
+.nav a:hover,
 .nav a.is-active {
   border-color: var(--ink);
 }
 
 /* ============ HERO ============ */
+
 .hero {
   position: relative;
   min-height: calc(100vh - var(--header-h));
@@ -112,22 +111,147 @@ img {
   overflow: hidden;
 }
 
+/* ============ NAV DROPDOWN (accessible, visual non-intrusive) ============ */
+.nav-dropdown { position: relative; }
+.nav-toggle {
+  background: transparent;
+  border: none;
+  padding: 6px 10px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+}
+.nav-toggle:focus { outline: 2px solid rgba(0,0,0,0.12); outline-offset: 2px; }
+.nav-icon {
+  display: inline-block;
+  width: 22px;
+  height: 16px;
+  position: relative;
+}
+.nav-icon::before,
+.nav-icon::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 4px; /* thicker lines */
+  background: var(--ink);
+  border-radius: 3px;
+}
+.nav-icon::before { top: 3px; }
+.nav-icon::after { bottom: 3px; }
+.sr-only { position: absolute !important; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0; }
+
+.nav-menu {
+  position: absolute;
+  right: 0;
+  top: calc(100% + 8px);
+  min-width: 220px;
+  padding: 0.5rem;
+  list-style: none;
+  /* slightly darker than page background for subtle contrast */
+  background: rgba(233,229,223,0.78);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  border-radius: 8px;
+  box-shadow: 0 6px 14px rgba(16,16,16,0.06);
+  z-index: 60;
+}
+.nav-menu li { margin: 0; }
+..nav-menu a { display: block; padding: 0.6rem 0.9rem; color: var(--ink); font-weight:600; border-radius:6px; background: transparent; transition: filter .18s ease, background .18s ease; filter: none; box-shadow: none; border: none; }
+.nav-menu a:hover, .nav-menu a:focus { filter: none; background: rgba(255,255,255,0.06); box-shadow: none; }
+/* default: items are sharp; JS will toggle .focus/.hovered to blur others */
+.nav-menu.focus a { filter: blur(1px); opacity: 0.96; }
+.nav-menu.focus a.hovered { filter: none; opacity: 1; }
+.nav-menu a:not(:hover) { opacity: 0.99; }
+
+/* Milk-glass subtle panel for items if desired */
+.nav-menu a { background: transparent; }
+
+/* ============ PARTNER: prevent copying of blurred names (visual-only protection) ============ */
+.partner-name {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+/*
+  Desktop:
+  TOBIAS, FRANZL und die Unterzeile sitzen im selben Block.
+  Dadurch ist die linke Flucht stabil und sauber.
+*/
+.hero-copy {
+  position: relative;
+  z-index: 3;
+  width: max-content;
+  max-width: none;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  text-align: left;
+}
+
+/*
+  Wieder groß wie in der alten Version.
+  Das L von FRANZL läuft bewusst über das Portrait / den Pulli.
+*/
 .hero-name {
   position: relative;
-  z-index: 2;
   color: var(--gray-name);
   font-weight: 800;
   line-height: 0.85;
-  letter-spacing: -0.035em;
+  letter-spacing: -0.045em;
   text-transform: uppercase;
-  font-size: clamp(3.5rem, 17vw, 17rem);
+  font-size: clamp(9.5rem, 17.2vw, 17rem);
   pointer-events: none;
 }
 
 .hero-name span {
   display: block;
+  margin: 0;
+  padding: 0;
 }
 
+.hero-name span:last-child {
+  margin-left: 0.52rem;
+}
+
+/*
+  Unterzeile exakt an derselben linken Kante.
+*/
+.hero-tag {
+  position: relative;
+  z-index: 3;
+  display: inline-flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 0.5rem;
+  margin-left: 0.52rem;
+  margin-top: clamp(1.45rem, 3.4vh, 2.45rem);
+  padding-left: 0;
+  font-size: 0.82rem;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--muted);
+  white-space: nowrap;
+}
+
+.hero-tag span {
+  display: inline-block;
+}
+
+.hero-dot {
+  display: inline-block;
+  margin: 0 0.12rem;
+  letter-spacing: 0;
+}
+
+/*
+  Portrait bleibt rechts und unter der Schrift.
+  z-index: 1 sorgt dafür, dass das L über den Pulli läuft.
+*/
 .hero-photo {
   position: absolute;
   right: var(--pad-x);
@@ -135,33 +259,16 @@ img {
   z-index: 1;
   height: min(90vh, 86%);
   width: auto;
+  max-width: none;
   object-fit: contain;
   object-position: bottom right;
 }
 
-.hero-tag {
-  position: relative;
-  z-index: 3;
-  margin-top: clamp(1.5rem, 4vh, 2.75rem);
-  font-size: 0.82rem;
-  font-weight: 600;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
-  color: var(--muted);
-}
-
 /* ============ SEKTIONEN ============ */
+
 .section {
   padding: clamp(4.5rem, 12vh, 9rem) var(--pad-x);
   border-top: 1px solid var(--line);
-}
-
-.section-index {
-  font-size: 0.82rem;
-  font-weight: 600;
-  letter-spacing: 0.22em;
-  color: var(--muted);
-  margin-bottom: 1.1rem;
 }
 
 .section-heading {
@@ -176,7 +283,8 @@ img {
   display: block;
 }
 
-/* ---- 01 Über mich ---- */
+/* ============ ÜBER MICH ============ */
+
 .about-grid {
   display: grid;
   grid-template-columns: minmax(340px, 0.78fr) minmax(700px, 1.45fr);
@@ -199,7 +307,6 @@ img {
   width: 100%;
 }
 
-/* Text rechts: breiter Blocksatz bis weiter nach rechts */
 .about-text {
   padding-top: 0.35rem;
   max-width: 880px;
@@ -229,7 +336,8 @@ img {
   margin-bottom: 0;
 }
 
-/* ---- 02 Kontakt ---- */
+/* ============ KONTAKT ============ */
+
 .contact-grid {
   display: grid;
   grid-template-columns: minmax(0, 620px);
@@ -245,7 +353,6 @@ img {
   margin-bottom: clamp(2rem, 4vw, 3rem);
 }
 
-/* Formular */
 .contact-form {
   max-width: 620px;
 }
@@ -357,7 +464,85 @@ img {
   color: #b23;
 }
 
+/* ============ DATENSCHUTZ / LEGAL PAGE ============ */
+
+.legal-page {
+  min-height: calc(100vh - var(--header-h));
+}
+
+.legal-hero {
+  padding: clamp(3.5rem, 8vh, 6rem) var(--pad-x) clamp(1.5rem, 3vh, 2.5rem);
+  border-top: 1px solid var(--line);
+}
+
+.legal-eyebrow {
+  font-size: 0.82rem;
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 1.15rem;
+}
+
+.legal-heading {
+  max-width: 11ch;
+}
+
+.legal-intro {
+  max-width: 42rem;
+  margin-top: clamp(1.5rem, 4vh, 2.5rem);
+  font-size: clamp(1.1rem, 1.5vw, 1.45rem);
+  line-height: 1.55;
+  color: var(--ink);
+}
+
+.legal-content {
+  max-width: 880px;
+  padding: 0 var(--pad-x) clamp(5rem, 12vh, 8rem);
+}
+
+.legal-section {
+  border-top: 1px solid var(--line);
+  padding: clamp(1.8rem, 4vw, 2.6rem) 0;
+}
+
+.legal-section:first-child {
+  border-top: none;
+}
+
+.legal-section h2 {
+  font-size: clamp(1.15rem, 1.8vw, 1.55rem);
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+  margin-bottom: 1rem;
+}
+
+.legal-section p {
+  font-size: clamp(0.98rem, 1.08vw, 1.12rem);
+  line-height: 1.62;
+  margin-bottom: 1em;
+  color: var(--ink);
+}
+
+.legal-section p:last-child {
+  margin-bottom: 0;
+}
+
+.legal-back {
+  display: inline-block;
+  margin-top: 1.25rem;
+  border-bottom: 1.5px solid var(--ink);
+  padding-bottom: 2px;
+  font-size: 0.95rem;
+  font-weight: 600;
+}
+
+.legal-back:hover {
+  opacity: 0.7;
+}
+
 /* ============ FOOTER ============ */
+
 .site-footer {
   border-top: 1px solid var(--line);
   padding: 2rem var(--pad-x);
@@ -373,12 +558,30 @@ img {
   color: var(--muted);
 }
 
+.footer-left,
+.footer-right {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
 .footer-name {
   font-weight: 600;
   color: var(--ink);
 }
 
+.footer-link {
+  text-decoration: underline;
+  text-underline-offset: 0.14em;
+}
+
+.footer-link:hover {
+  opacity: 0.75;
+}
+
 /* ============ SCROLL-REVEAL ============ */
+
 .reveal {
   opacity: 0;
   transform: translateY(24px);
@@ -390,7 +593,62 @@ img {
   transform: none;
 }
 
-/* ============ RESPONSIVE ============ */
+/* ============ DESKTOP FEINTUNING ============ */
+
+@media (min-width: 1600px) {
+  .hero-name {
+    font-size: clamp(10rem, 17.4vw, 18rem);
+  }
+
+  .hero-photo {
+    height: min(90vh, 86%);
+    right: var(--pad-x);
+  }
+}
+
+@media (min-width: 1300px) and (max-width: 1599px) {
+  .hero-name {
+    font-size: clamp(9.5rem, 17.2vw, 17rem);
+  }
+
+  .hero-photo {
+    height: min(90vh, 86%);
+    right: var(--pad-x);
+  }
+}
+
+@media (min-width: 1100px) and (max-width: 1299px) {
+  .hero-name {
+    font-size: clamp(8.5rem, 16.4vw, 14rem);
+  }
+
+  .hero-photo {
+    height: min(88vh, 84%);
+    right: clamp(1.5rem, 4vw, 5rem);
+  }
+
+  .hero-tag {
+    font-size: 0.78rem;
+  }
+}
+
+@media (min-width: 900px) and (max-width: 1099px) {
+  .hero-name {
+    font-size: clamp(7.2rem, 15.5vw, 11rem);
+  }
+
+  .hero-photo {
+    height: min(84vh, 80%);
+    right: clamp(1rem, 3vw, 3.5rem);
+  }
+
+  .hero-tag {
+    font-size: 0.74rem;
+  }
+}
+
+/* ============ RESPONSIVE CONTENT ============ */
+
 @media (max-width: 1250px) {
   .about-grid {
     grid-template-columns: minmax(320px, 0.85fr) minmax(560px, 1.25fr);
@@ -439,7 +697,13 @@ img {
     grid-template-columns: 1fr;
     gap: 2.75rem;
   }
+
+  .legal-content {
+    max-width: none;
+  }
 }
+
+/* ============ MOBILE ============ */
 
 @media (max-width: 760px) {
   :root {
@@ -465,27 +729,75 @@ img {
   .hero {
     min-height: auto;
     padding-top: 2.5rem;
-    padding-bottom: 2.5rem;
+    padding-bottom: 0;
+    padding-left: 0;
+    padding-right: 0;
+    display: block;
+  }
+
+  .hero-copy {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    max-width: none;
+    margin: 0 auto;
+    text-align: center;
   }
 
   .hero-name {
     font-size: clamp(3rem, 20vw, 6rem);
-    position: relative;
-    color: var(--gray-name);
+    line-height: 0.88;
+    letter-spacing: -0.035em;
+    text-align: center;
+  }
+
+  .hero-name span:last-child {
+    margin-left: 0;
   }
 
   .hero-photo {
     position: relative;
     right: auto;
-    height: auto;
+    bottom: auto;
     width: min(85%, 340px);
-    margin: 1.75rem auto 0;
+    max-width: none;
+    height: auto;
+    margin: 3rem auto 0;
     object-position: center;
   }
 
   .hero-tag {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.08rem;
+    width: 100%;
     text-align: center;
-    margin-top: 1.5rem;
+    margin-top: 1.45rem;
+    margin-left: 0;
+    white-space: normal;
+    line-height: 1.4;
+  }
+
+  .hero-name span:last-child {
+    margin-left: 0;
+  }
+
+  .hero-tag span {
+    display: block;
+    width: 100%;
+    text-align: center;
+  }
+
+  .hero-dot {
+    display: block;
+    width: 100%;
+    margin: 0.02rem 0;
+    text-align: center;
+    line-height: 1;
+    letter-spacing: 0;
   }
 
   .about-text p {
@@ -499,9 +811,38 @@ img {
     line-height: 1.56;
     margin-bottom: 1.05em;
   }
+
+  .legal-hero {
+    padding-top: 3.5rem;
+  }
+
+  .legal-content {
+    padding-bottom: 4rem;
+  }
+
+  .legal-section p {
+    font-size: 0.98rem;
+    line-height: 1.58;
+  }
+
+  .footer-inner {
+    align-items: flex-start;
+  }
+
+  .footer-left,
+  .footer-right {
+    gap: 0.75rem;
+  }
+
+  .nav-menu {
+    background: rgba(241,239,232,0.96);
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+  }
 }
 
-/* Reduzierte Bewegung respektieren */
+/* ============ REDUZIERTE BEWEGUNG ============ */
+
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
@@ -514,7 +855,8 @@ img {
   }
 }
 
-/* Sichtbarer Fokus */
+/* ============ FOKUS ============ */
+
 a:focus-visible,
 button:focus-visible,
 input:focus-visible,

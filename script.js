@@ -176,4 +176,83 @@
       */
     });
   }
+
+  /* Dropdown (accessible) for header menu */
+  (function () {
+    var menuBtn = document.getElementById('menuBtn');
+    var mainMenu = document.getElementById('mainMenu');
+
+    if (menuBtn && mainMenu) {
+      menuBtn.addEventListener('click', function (e) {
+        var expanded = menuBtn.getAttribute('aria-expanded') === 'true';
+        menuBtn.setAttribute('aria-expanded', (!expanded).toString());
+        mainMenu.hidden = expanded;
+      });
+
+      // close when clicking outside
+      document.addEventListener('click', function (e) {
+        if (!menuBtn.contains(e.target) && !mainMenu.contains(e.target)) {
+          menuBtn.setAttribute('aria-expanded', 'false');
+          mainMenu.hidden = true;
+        }
+      });
+
+      // close on Escape
+      document.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape') {
+          menuBtn.setAttribute('aria-expanded', 'false');
+          mainMenu.hidden = true;
+          menuBtn.focus();
+        }
+      });
+
+      // Hover / focus behavior: blur other items while one is hovered/focused
+      (function () {
+        var items = Array.prototype.slice.call(mainMenu.querySelectorAll('a[role="menuitem"]'));
+
+        if (!items.length) return;
+
+        function clearHovered() {
+          items.forEach(function (it) { it.classList.remove('hovered'); });
+          mainMenu.classList.remove('focus');
+        }
+
+        items.forEach(function (item) {
+          item.addEventListener('mouseenter', function () {
+            mainMenu.classList.add('focus');
+            items.forEach(function (it) { it.classList.remove('hovered'); });
+            item.classList.add('hovered');
+          });
+
+          item.addEventListener('focus', function () {
+            mainMenu.classList.add('focus');
+            items.forEach(function (it) { it.classList.remove('hovered'); });
+            item.classList.add('hovered');
+          });
+
+          item.addEventListener('mouseleave', function () {
+            item.classList.remove('hovered');
+            // if no item hovered/focused, clear
+            setTimeout(function () {
+              var any = mainMenu.querySelector('a.hovered');
+              if (!any) clearHovered();
+            }, 10);
+          });
+
+          item.addEventListener('blur', function () {
+            item.classList.remove('hovered');
+            setTimeout(function () {
+              var any = mainMenu.querySelector('a.hovered');
+              if (!any) clearHovered();
+            }, 10);
+          });
+        });
+
+        // when leaving the menu entirely, clear
+        mainMenu.addEventListener('mouseleave', function () {
+          clearHovered();
+        });
+      })();
+    }
+  })();
 })();
