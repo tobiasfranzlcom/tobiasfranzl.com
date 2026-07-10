@@ -1,0 +1,6 @@
+schwarz_000000
+beige_f1efe8
+dark_beige_5F5B53
+white_FFFFFF
+blue_4155B9
+orange_E4654D

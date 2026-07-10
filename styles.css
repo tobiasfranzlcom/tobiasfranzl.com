@@ -74,10 +74,17 @@ img {
 }
 
 .logo {
-  font-size: clamp(1.15rem, 2.1vw, 1.5rem);
-  font-weight: 700;
-  letter-spacing: -0.01em;
-  white-space: nowrap;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.logo img {
+  width: clamp(4rem, 6.5vw, 6rem);
+  height: clamp(4rem, 6.5vw, 6rem);
+  object-fit: contain;
+  object-position: center;
 }
 
 .nav {
@@ -715,15 +722,16 @@ img {
   }
 
   .nav {
-    gap: 1.25rem;
+    gap: clamp(1rem, 2.5vw, 1.5rem);
+  }
+
+  .logo img {
+    width: 3.2rem;
+    height: 3.2rem;
   }
 
   .nav a {
     font-size: 0.95rem;
-  }
-
-  .logo {
-    font-size: 1.1rem;
   }
 
   .hero {
