@@ -39,16 +39,40 @@
     "@context": "https://schema.org",
     "@graph": [
       {
-        "@type": "Person",
-        "name": "Tobias Franzl",
+        "@type": "WebSite",
+        "@id": "https://www.tobiasfranzl.com/#website",
         "url": "https://www.tobiasfranzl.com/",
-        "image": "https://www.tobiasfranzl.com/portrait.png",
-        "description": "Metallbautechnik, Industrierückbau, Recyclinglösungen."
+        "name": "Tobias Franzl",
+        "inLanguage": "de-AT"
       },
       {
-        "@type": "WebSite",
-        "name": "Tobias Franzl",
-        "url": "https://www.tobiasfranzl.com/"
+        "@type": "ProfilePage",
+        "@id": "https://www.tobiasfranzl.com/#profile",
+        "url": "https://www.tobiasfranzl.com/",
+        "name": "Tobias Franzl – Metallrecycling und Industrierückbau",
+        "isPartOf": {
+          "@id": "https://www.tobiasfranzl.com/#website"
+        },
+        "mainEntity": {
+          "@type": "Person",
+          "@id": "https://www.tobiasfranzl.com/#person",
+          "name": "Tobias Franzl",
+          "url": "https://www.tobiasfranzl.com/",
+          "image": "https://www.tobiasfranzl.com/about.png",
+          "description": "Tobias Franzl ist Metall- und Maschinenbaumeister mit langjähriger Erfahrung in Metallrecycling, Industrierückbau und internationalen Recyclingprojekten.",
+          "sameAs": [
+            "https://at.linkedin.com/in/tobias-franzl-18ab071a2",
+            "https://www.instagram.com/tobiasfranzl/"
+          ],
+          "knowsAbout": [
+            "Metallbautechnik",
+            "Metallrecycling",
+            "Industrierückbau",
+            "Recyclinglösungen",
+            "Projektmanagement",
+            "Kreislaufwirtschaft"
+          ]
+        }
       }
     ]
   }
@@ -200,6 +224,7 @@
       <div class="footer-right">
         <a href="impressum.html" class="footer-link">Impressum</a>
         <a href="datenschutz.html" class="footer-link">Datenschutz</a>
+        <a href="https://at.linkedin.com/in/tobias-franzl-18ab071a2" class="footer-link" target="_blank" rel="noopener">LinkedIn</a>
       </div>
     </div>
   </footer>
