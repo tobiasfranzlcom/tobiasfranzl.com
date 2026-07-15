@@ -8,6 +8,84 @@
     yearEl.textContent = new Date().getFullYear();
   }
 
+  /* Sprachumschaltung */
+  var translations = {
+    de: {
+      navContact: "Kontakt",
+      heroLine1: "Industrierückbau",
+      heroLine2: "Recyclinglösungen",
+      contactHeading: "Kontakt",
+      contactIntro: "Schreib mir eine Nachricht. Ich freue mich, von dir zu hören.",
+      nameLabel: "Name",
+      phoneLabel: "Telefonnummer",
+      optionalLabel: "optional",
+      phoneHint: "Mit Ländervorwahl, z. B. +43 664 1234567",
+      emailLabel: "E-Mail",
+      messageLabel: "Nachricht",
+      sendButton: "Absenden",
+      privacyLink: "Datenschutz",
+      partnerHeading: "Partner",
+      partnerIntro: "Diese Seite ist nicht mehr Teil der aktuellen Website.",
+      partnerBody: "Die aktuelle Version der Website ist bewusst sehr knapp gehalten. Für Anfragen geht es direkt zur Startseite.",
+      impressumHeading: "Impressum",
+      impressumIntro: "Diese Seite ist nicht mehr Teil der aktuellen Website.",
+      impressumBody: "Die aktuelle Version der Website ist bewusst sehr knapp gehalten. Für Anfragen geht es direkt zur Startseite.",
+      backHome: "Zurück zur Startseite"
+    },
+    en: {
+      navContact: "Contact",
+      heroLine1: "Industrial deconstruction",
+      heroLine2: "Recycling solutions",
+      contactHeading: "Contact",
+      contactIntro: "Send me a message. I would be happy to hear from you.",
+      nameLabel: "Name",
+      phoneLabel: "Phone number",
+      optionalLabel: "optional",
+      phoneHint: "With country code, e.g. +43 664 1234567",
+      emailLabel: "E-mail",
+      messageLabel: "Message",
+      sendButton: "Send",
+      privacyLink: "Privacy",
+      partnerHeading: "Partner",
+      partnerIntro: "This page is no longer part of the current website.",
+      partnerBody: "The current version of the website is intentionally very minimal. For inquiries, please go directly to the homepage.",
+      impressumHeading: "Imprint",
+      impressumIntro: "This page is no longer part of the current website.",
+      impressumBody: "The current version of the website is intentionally very minimal. For inquiries, please go directly to the homepage.",
+      backHome: "Back to homepage"
+    }
+  };
+
+  function applyLanguage(lang) {
+    var currentLang = lang === "en" ? "en" : "de";
+
+    document.querySelectorAll("[data-i18n]").forEach(function (element) {
+      var key = element.getAttribute("data-i18n");
+      if (translations[currentLang] && translations[currentLang][key]) {
+        element.textContent = translations[currentLang][key];
+      }
+    });
+
+    document.documentElement.lang = currentLang;
+
+    document.querySelectorAll(".lang-toggle").forEach(function (button) {
+      var isActive = button.getAttribute("data-lang-toggle") === currentLang;
+      button.classList.toggle("is-active", isActive);
+      button.setAttribute("aria-pressed", isActive ? "true" : "false");
+    });
+  }
+
+  var initialLang = localStorage.getItem("site-lang") || "de";
+  applyLanguage(initialLang);
+
+  document.querySelectorAll(".lang-toggle").forEach(function (button) {
+    button.addEventListener("click", function () {
+      var selectedLang = button.getAttribute("data-lang-toggle") || "de";
+      localStorage.setItem("site-lang", selectedLang);
+      applyLanguage(selectedLang);
+    });
+  });
+
   /* Aktiver Navigationslink beim Scrollen */
   var sections = document.querySelectorAll("section[id]");
   var navLinks = document.querySelectorAll(".nav a");
